@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rx_dart_sample/counter_bloc.dart';
+import 'package:rx_dart_sample/photo_view/photo_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -28,8 +29,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  final CounterBloc _counterBloc =  CounterBloc();
+  final CounterBloc _counterBloc = CounterBloc();
 
   @override
   void dispose() {
@@ -49,22 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 'You have pushed the button this many times:',
               ),
               StreamBuilder<Object>(
-                stream: _counterBloc.getValue,
-                builder: (context, snapshot) {
-                  if(snapshot.hasData) {
-                    return Text('${snapshot.data}', style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyText1);
-                  }
-                  else{
-                    return Text('0', style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyText1);
-                  }
-                }
-              ),
+                  stream: _counterBloc.getValue,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text('${snapshot.data}',
+                          style: Theme.of(context).textTheme.bodyText1);
+                    } else {
+                      return Text('0',
+                          style: Theme.of(context).textTheme.bodyText1);
+                    }
+                  }),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => PhotoView()));
+                  },
+                  child: Text('Press here'))
             ],
           ),
         ),
